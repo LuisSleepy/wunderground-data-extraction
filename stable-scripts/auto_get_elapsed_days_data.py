@@ -187,13 +187,12 @@ try:
                 except Exception as e:
                     logging.error(f"Error in retrieving data from {station}: {e}")
                 
-                # Pause for 2 seconds to prevent exceeding the API limit
+                # Pause for 5 seconds to prevent exceeding the API limit
                 time.sleep(5)
-                
-                # latest_date = datetime.strftime(str(latest_date) + timedelta(days=1), "%Y%m%d")
+
                 latest_date = (datetime.strptime(latest_date, "%Y%m%d") + timedelta(days=1)).strftime("%Y%m%d")
         else:
             logging.info(f"The latest date of station {station} is yesterday. No new data to be retrieved from this station.")
-            # exit()
+
 except Exception as e:
     logging.error(f"Error in running the script after importation: {e}")
