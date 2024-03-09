@@ -48,12 +48,12 @@ try:
         ORDER BY station_id
     """
 
-    df = pl.read_database_uri(query=checking_query, uri=connection_url)
+    stations_df = pl.read_database_uri(query=checking_query, uri=connection_url)
     
     # Loop through the different stations
-    for station in df["station_id"].to_list():
+    for station in stations_df["station_id"].to_list():
         # Make sure that the latest_date is the same data format as yesterday
-        latest_date = datetime.strftime(df.filter(pl.col("station_id") == station)["latest_date"].max(), "%Y%m%d")
+        latest_date = datetime.strftime(stations_df.filter(pl.col("station_id") == station)["latest_date"].max(), "%Y%m%d")
 
         if latest_date != yesterday:
             logging.info("The latest date in the database is not yesterday. Running the script...")
